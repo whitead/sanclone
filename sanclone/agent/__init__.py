@@ -1,3 +1,3 @@
-from agent import SanCloneAgent
+from .agent import SanCloneAgent
 
 __all__ = ["SanCloneAgent"]

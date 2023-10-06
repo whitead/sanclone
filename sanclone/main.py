@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import click
 
+from .agent import SanCloneAgent
+
 WELCOME = """
 Welcome to San Clone 👋  a molecular cloning agent 🧬.
-Give it an instruction like "Clone NADH Oxidase from Streptococcus pyogenes into pET16b"
+Give it an instruction like "Clone NADH Oxidase from Streptococcus pyogenes into the pET16b"
 and press ✨ enter ✨
 """
 
@@ -24,13 +26,15 @@ def main():
             print("You can add this to your ~/.bashrc or ~/.bash_profile")
             return
     print(WELCOME)
+    agent = SanCloneAgent()
     while True:
         instruction = input(">")
         if instruction == "exit" or instruction == "quit" or instruction == "q":
             print("Goodbye 👋")
             break
         else:
-            pass
+            agent.run(instruction)
+            print("-" * 80)
 
 
 if __name__ == "__main__":

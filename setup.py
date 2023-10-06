@@ -16,7 +16,7 @@ setup(
     author_email="andrew@futurehouse.org",
     url="https://github.com/whitead/sanclone",
     license="MIT",
-    packages=["sanclone", "sanclone.tools"],
+    packages=["sanclone", "sanclone.tools", "sanclone.agent"],
     install_requires=["langchain", "biopython", "click"],
     entry_points={"console_scripts": ["sanclone = sanclone.main:main"]},
     test_suite="tests",

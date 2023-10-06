@@ -1,5 +1,6 @@
 from langchain.agents import AgentExecutor, ZeroShotAgent
 from langchain.agents.openai_functions_agent.base import OpenAIFunctionsAgent
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.chat_models import ChatOpenAI
 
 from ..tools import make_tools
@@ -22,18 +23,21 @@ class SanCloneAgent:
         self,
         tools=None,
         llm=None,
-        openai_api_key=None,
         temp=0.1,
         agent_type: str = "OpenAIFunctionsAgent",
-        verbose=True,
     ):
-        llm = ChatOpenAI(temperature=0.0, model="gpt-4", client=None)
+        llm = ChatOpenAI(
+            temperature=temp,
+            model="gpt-4",
+            client=None,
+            streaming=True,
+            callbacks=[StreamingStdOutCallbackHandler()],
+        )
 
         tools = make_tools(llm)
         self.agent_instance = AgentExecutor.from_agent_and_tools(
             tools=tools,
             agent=AgentType.get_agent(agent_type).from_llm_and_tools(llm, tools),
-            return_intermediate_steps=True,
             handle_parsing_errors=True,
         )
 
