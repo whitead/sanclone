@@ -1,5 +1,6 @@
 from Bio import Entrez, SeqIO
 import json
+from sanclone.tools import settings
 
 
 from langchain.tools import BaseTool
@@ -9,7 +10,7 @@ from ..state import State
 
 class ParseGeneTool(BaseTool):
     name = "parse_genes"
-    description = "a tool that parses in the virus prompt"
+    description = "A tool that takes in a json object of the form {'gene_name': ..., 'organism': ...} and update the internal state to include the linear insert GenBank file"
     shared_state: State
 
     def _run(self, query: str) -> str:
@@ -25,7 +26,7 @@ class ParseGeneTool(BaseTool):
             return "Could not find Sequence"
     
 def fetch_sequence(gene_name, organism):
-    Entrez.email = "your.email@example.com"  # Always tell NCBI who you are
+    Entrez.email = settings.email # Always tell NCBI who you 
     search_term = f"{gene_name}[Gene Name] AND {organism}[Organism] AND mRNA[Filter]"
 
     # Search for the gene's mRNA ID

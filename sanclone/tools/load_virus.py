@@ -9,7 +9,7 @@ from sanclone.tools import settings
 
 class ParseVirusTool(BaseTool):
     name = "parse_virus"
-    description = "a tool that parses in the virus prompt"
+    description = "Input: a virus name, output: a virus genbank internal file"
     shared_state: State
 
     def _run(self, query: str) -> str:
