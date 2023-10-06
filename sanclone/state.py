@@ -11,7 +11,7 @@ from Bio import Entrez
 from Bio import SeqIO
 
 
-class SequenceAnnotation:
+class State:
     def __init__(self, vector):
         # Ensure the vector is a SeqRecord object from Biopython
         if not isinstance(vector, SeqIO.SeqRecord):
@@ -70,7 +70,7 @@ for gb_record in SeqIO.parse(open(output_filename_linear_insert,"r"), "genbank")
 vector_seq = list(SeqIO.parse(open(output_filename_vector,"r"), "genbank"))
 insert_seq = list(SeqIO.parse(open(output_filename_linear_insert,"r"), "genbank"))
 
-seq_anno = SequenceAnnotation(vector_seq[0])
+seq_anno = State(vector_seq[0])
 seq_anno.store_linear_insert(insert_seq[0])
 
 retrieved_vector = seq_anno.retrieve_vector()
