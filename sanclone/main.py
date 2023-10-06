@@ -3,7 +3,7 @@ import click
 
 WELCOME = """
 Welcome to San Clone 👋  a molecular cloning agent 🧬.
-Give it an instruction like "Clone NADH Oxidase from Streptococcus pyogenes into the pET16b"
+Give it an instruction like "Clone NADH Oxidase from Streptococcus pyogenes into pET16b"
 and press ✨ enter ✨
 """
 
