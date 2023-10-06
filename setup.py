@@ -1,5 +1,8 @@
 from setuptools import setup
 
+# so mypy can see version
+__version__ = "0.0.0"
+
 exec(open("sanclone/version.py").read())
 
 with open("README.md", "r", encoding="utf-8") as fh:
@@ -20,6 +23,6 @@ setup(
     long_description_content_type="text/markdown",
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License"
+        "License :: OSI Approved :: MIT License",
     ],
 )
