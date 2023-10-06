@@ -3,7 +3,7 @@ from langchain.agents.openai_functions_agent.base import OpenAIFunctionsAgent
 from langchain.chat_models import ChatOpenAI
 
 from ..tools import make_tools
-from .prompt import FORMAT_INSTRUCTIONS
+from .prompt import prompt_template
 
 
 class AgentType:
@@ -38,4 +38,4 @@ class SanCloneAgent:
         )
 
     def run(self, prompt: str):
-        return self.agent_instance.run(FORMAT_INSTRUCTIONS.format(input=prompt))
+        return self.agent_instance.run(prompt_template.format(input=prompt))

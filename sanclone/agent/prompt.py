@@ -1,5 +1,5 @@
 # flake8: noqa
-FORMAT_INSTRUCTIONS = """
+prompt_template = """
 You are an expert in molecular cloning.
 You have a set of tools at your disposal.
 Your task is to respond to the question or
