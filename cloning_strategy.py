@@ -3,6 +3,7 @@
 #output - language on what was done, final gene sequence, gene fragments to order
 
 import pandas as pd
+from Bio.SeqUtils import MeltingTemp as mt
 
 #this function cleans up ambiguous characters in DNA
 def dna_clean(sequence = ""):
@@ -120,12 +121,52 @@ def remove_restriction(restriction_sites = [], sequence = "", ):
       
     return new_nucleotide_sequence  
 
+#this function breaks the insert into chunks for DNA synthesis
+def eblockerizer(sequence, max_fragment_length = 500, min_fragment_length = 300, min_gibson_overlap = 25, min_overlap_Tm = 55):
+    
+    full_sequence = sequence.upper()
+    
+    current_part = 0
+    sequences = []
+    remaining_sequence = full_sequence
+    
+    while True:
+        current_part = current_part + 1
+        
+        #is sequence already < max_fragment_length?
+        if len(remaining_sequence) <= max_fragment_length:
+            sequences.append(["{}_{}".format(seq_name,current_part),remaining_sequence])
+            break
+        else:
+            #can the rest be split into two equal pieces?
+            if len(remaining_sequence) <= 2*max_fragment_length-70:
+                target_length = len(remaining_sequence)//2
+            else:
+                target_length = max_fragment_length
+            
+            #check if Tm of overlap is greater than 55C and extend overlap if not
+            i=0
+            while True:
+                this_overlap = remaining_sequence[target_length-min_gibson_overlap-i:target_length]
+                this_overlap_Tm = mt.Tm_NN(Seq(this_overlap))
+                
+                if this_overlap_Tm > min_overlap_Tm:
+                    #output this fragment and update the remaining sequence
+                    sequences.append(["{}_{}".format(seq_name,current_part),remaining_sequence[0:target_length]])
+                    remaining_sequence = remaining_sequence[target_length-min_gibson_overlap-i:]
+                    break
+                else:
+                    #if needed extent the overlap
+                    i = i+1
+    return sequences
+
 
 #this function actually does the full task
-def do_the_thing(sequence = '', restriction_sites = [], cloning_sites = [], synthesis_size = 500):
+def do_the_thing(sequence = '', restriction_sites = [], cloning_sites = [], max_fragment_length = 500):
     sequence = dna_clean(sequence)
-    new_sequence = remove_restriction(restriction_sites[],sequence)
+    new_sequence = remove_restriction(restriction_sites = restriction_sites[],sequence = sequence)
     
+    fragments = eblockerizer(sequence = new_sequence)
     #add the new sequence to the State
     
     return "The following restriction sites were removed:" + restriction_sites
