@@ -13,7 +13,7 @@ setup(
     author_email="andrew@futurehouse.org",
     url="https://github.com/whitead/sanclone",
     license="MIT",
-    packages=["sanclone"],
+    packages=["sanclone", "sanclone.tools"],
     install_requires=["langchain"],
     test_suite="tests",
     long_description=long_description,
