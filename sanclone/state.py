@@ -12,16 +12,15 @@ from Bio import SeqIO
 
 
 class State:
-    def __init__(self, vector):
-        # Ensure the vector is a SeqRecord object from Biopython
-        if not isinstance(vector, SeqIO.SeqRecord):
-            raise ValueError("Input 'vector' must be a SeqRecord object from Biopython's SeqIO.")
-        self.vector = vector
+    def __init__(self):
+        self.vector = None
         self.linear_insert = None
-        # clone_seq is a DNA seq in string format
-        # clone is the SeqRecord with annotations
         self.clone_seq = None
-        self.clone = None
+
+    def store_vector(self, vector):
+        if not isinstance(vector, SeqIO.SeqRecord):
+                raise ValueError("Input 'vector' must be a SeqRecord object from Biopython's SeqIO.")
+        self.vector = vector
 
     def store_linear_insert(self, linear_insert):
         # Ensure the linear_insert is a SeqRecord object from Biopython
@@ -29,12 +28,9 @@ class State:
             raise ValueError("Input 'linear_insert' must be a SeqRecord object from Biopython's SeqIO.")
         self.linear_insert = linear_insert
 
-    # def store_clone_annotation(self, clone_seq):
-    #     # Ensure the linear_insert is a SeqRecord object from Biopython
-    #     self.clone_seq = clone_seq
-
-
-    #     self.clone =
+    def store_clone_seq(self, clone_seq):
+        # Ensure the linear_insert is a SeqRecord object from Biopython
+        self.clone_seq = clone_seq
 
     def retrieve_vector(self):
         return self.vector
@@ -42,8 +38,8 @@ class State:
     def retrieve_linear_insert(self):
         return self.linear_insert
 
-    def retrieve_clone(self):
-        return self.clone
+    def retrieve_clone_seq(self):
+        return self.clone_seq
     # seq to annotation
 
 
