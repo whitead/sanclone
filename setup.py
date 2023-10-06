@@ -17,7 +17,7 @@ setup(
     url="https://github.com/whitead/sanclone",
     license="MIT",
     packages=["sanclone", "sanclone.tools"],
-    install_requires=["langchain"],
+    install_requires=["langchain", "biopython"],
     test_suite="tests",
     long_description=long_description,
     long_description_content_type="text/markdown",
