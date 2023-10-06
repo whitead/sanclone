@@ -9,8 +9,10 @@ from ..state import State
 
 
 class ParseGeneTool(BaseTool):
-    name = "parse_genes"
-    description = "A tool that takes in a json object of the form {'gene_name': ..., 'organism': ...} and update the internal state to include the linear insert GenBank file"
+    name = "get_insert_from_name"
+    description = """A tool that takes in a json object of the
+      form {'gene_name': ..., 'organism': ...} and update the 
+      internal state to include the linear insert GenBank file. """
     shared_state: State
 
     def _run(self, query: str) -> str:

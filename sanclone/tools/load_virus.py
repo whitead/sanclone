@@ -8,8 +8,10 @@ from sanclone.tools import settings
 
 
 class ParseVirusTool(BaseTool):
-    name = "parse_virus"
-    description = "Input: a virus name, output: a virus genbank internal file"
+    name = "get_virus_from_name"
+    description = """Use this function when being asked to take in a virus name 
+    to get the bioPython seqRecord object. 
+    Input: a virus name, output: a virus genbank internal file"""
     shared_state: State
 
     def _run(self, query: str) -> str:
